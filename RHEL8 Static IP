@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function valid_ip()
+{
+    local  ip=$1
+    local  stat=1
+
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stat=$?
+    fi
+    return $stat
+}
+
+function valid_cidr()
+{
+#To Be Added
+}
+
+echo "Please Enter the Desired IP Address"
+read ip_addr
+if (valid_cidr $ip_addr)
+        then
+                echo "Please Enter the Desired Gateway"
+                read gate
+                if (valid_ip $gate)
+                        then
+                                #add If loop for DNS here
+                                #echo "Restarting Networking Manager"
+                                #systemctl restart NetworkManager
+                                #echo "Assigning IP Address"
+                                #nmicli con mod ens18 ipv4.address $ip_add
+                                #echo "Assinging Gateway"
+                                #nmcli con mod ens18 ipv4.gateway $gate
+                                #echo "Disabling DHCP"
+                                #nmcli con mod ens18 ipv4.method manual
+                                #echo "Assigning DNS Server"
+                                #nmcli con mod ens ipv4.dns $dns
+                                #echo "Restarting Interace"
+                                #nmcli con up ens18
+                                #echo "Restarting Networking Manager.......Again"
+                                #systemctl restart NetworkManager
+                                echo "Valid IP"
+                                echo $ip_addr
+                        fi
+fi
